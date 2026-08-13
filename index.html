@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Formulario de entrevista - SBM</title>
+  <style>
+    :root{--blue:#173b67;--gold:#e6ad30;--ink:#17202a;--muted:#637083;--line:#dce3eb;--bg:#f2f5f9;--white:#fff;--danger:#b42318}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+    .hero{background:linear-gradient(135deg,#102d51,var(--blue));color:#fff;padding:42px 20px 34px;border-bottom:5px solid var(--gold)}
+    .hero div,main{max-width:900px;margin:auto}.hero h1{margin:0 0 8px;font-size:clamp(1.8rem,4vw,2.7rem)}.hero p{margin:0;opacity:.88}
+    main{padding:26px 18px 60px}.notice,.section{background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:0 5px 18px #173b6710}
+    .notice{padding:16px 20px;margin-bottom:18px;color:var(--muted)}.section{padding:24px;margin:18px 0}.section h2{margin:0 0 6px;color:var(--blue);font-size:1.35rem}.section-intro{margin:0 0 22px;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.field{margin:0 0 20px}.grid .field{margin:0}.full{grid-column:1/-1}
+    label,legend{display:block;font-weight:650;margin-bottom:7px}fieldset{border:0;padding:0;margin:0 0 20px}.required::after{content:" *";color:var(--danger)}
+    input,select,textarea{width:100%;border:1px solid #b9c5d3;border-radius:9px;padding:11px 12px;background:#fff;color:var(--ink);font:inherit;transition:.15s}
+    input:focus,select:focus,textarea:focus{outline:3px solid #e6ad3045;border-color:var(--blue)}textarea{min-height:105px;resize:vertical}.choices{display:flex;flex-wrap:wrap;gap:10px 22px}.choices label{display:flex;align-items:center;gap:8px;font-weight:450;margin:0}.choices input{width:auto;accent-color:var(--blue)}
+    .conditional{border-left:4px solid var(--gold);padding-left:16px;margin:5px 0 20px}.hidden{display:none}.actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-end;margin-top:24px}.actions button{border:0;border-radius:9px;padding:12px 17px;font:650 15px inherit;cursor:pointer}.primary{background:var(--blue);color:#fff}.secondary{background:#e8edf3;color:var(--blue)}.danger{background:#fee4e2;color:#912018}
+    #status{min-height:24px;margin:12px 0 0;text-align:right;color:var(--muted)}.privacy{font-size:.9rem;color:var(--muted);margin-top:20px}.progress-wrap{position:sticky;top:0;z-index:2;background:#ffffffed;border-bottom:1px solid var(--line);padding:8px 18px;backdrop-filter:blur(8px)}.progress{height:7px;max-width:900px;margin:auto;background:#e2e8f0;border-radius:8px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:var(--gold);transition:.2s}
+    @media(max-width:650px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.section{padding:20px 16px}.actions button{flex:1}.hero{padding-top:32px}}
+    @media print{.progress-wrap,.actions,#status{display:none}.hero{padding:20px;color:#000;background:#fff;border-bottom:2px solid #000}.section,.notice{box-shadow:none;break-inside:avoid}body{background:#fff}main{padding:10px}}
+  </style>
+</head>
+<body>
+  <header class="hero"><div><h1>Formulario de entrevista — SBM</h1><p>Datos del candidato, documentación, salud ocupacional, uniforme y entrevista.</p></div></header>
+  <div class="progress-wrap"><div class="progress" aria-label="Progreso del formulario"><span id="progress"></span></div></div>
+  <main>
+    <div class="notice"><strong>Importante:</strong> los campos marcados con <span style="color:#b42318">*</span> son obligatorios. La información se utilizará únicamente para el proceso de entrevista laboral.</div>
+    <form id="sbmForm">
+      <section class="section"><h2>1. Datos del candidato</h2><p class="section-intro">Información general y de contacto.</p>
+        <div class="grid">
+          <div class="field"><label class="required" for="fecha">Fecha</label><input id="fecha" name="fecha" type="date" required></div>
+          <div class="field"><label class="required" for="nombre">Nombre completo</label><input id="nombre" name="nombre" autocomplete="name" required></div>
+          <div class="field"><label class="required" for="telefono">Número de teléfono</label><input id="telefono" name="telefono" type="tel" autocomplete="tel" required></div>
+          <div class="field"><label class="required" for="correo">Correo electrónico</label><input id="correo" name="correo" type="email" autocomplete="email" required></div>
+          <div class="field"><label class="required" for="posicion">Posición para la que participa</label><input id="posicion" name="posicion" required></div>
+          <div class="field"><label class="required" for="cedula">Número de cédula</label><input id="cedula" name="cedula" inputmode="numeric" required></div>
+          <fieldset><legend class="required">¿Cédula vigente?</legend><div class="choices"><label><input type="radio" name="cedula_vigente" value="Sí" required> Sí</label><label><input type="radio" name="cedula_vigente" value="No"> No</label></div></fieldset>
+          <div class="field"><label class="required" for="estado_civil">Estado civil actual</label><select id="estado_civil" name="estado_civil" required><option value="">Seleccione…</option><option>Casado(a)</option><option>Divorciado(a)</option><option>Viudo(a)</option><option>Unión libre</option><option>Soltero(a)</option></select></div>
+          <div class="field full"><label class="required" for="direccion">Dirección detallada</label><textarea id="direccion" name="direccion" autocomplete="street-address" required></textarea></div>
+          <div class="field full"><label class="required" for="emergencia">Contacto de emergencia (nombre completo y teléfono)</label><textarea id="emergencia" name="contacto_emergencia" required></textarea></div>
+        </div>
+        <fieldset><legend class="required">Declaro que la información suministrada es verdadera y se proporciona para efectos de entrevista de trabajo</legend><div class="choices"><label><input type="radio" name="declaracion" value="Sí" required> Sí</label><label><input type="radio" name="declaracion" value="No"> No</label></div></fieldset>
+      </section>
+
+      <section class="section"><h2>2. Documentación</h2><p class="section-intro">Disponibilidad de documentos para el proceso de selección.</p>
+        <div class="grid">
+          <fieldset><legend class="required">Hoja de delincuencia al día</legend><div class="choices"><label><input type="radio" name="hoja_delincuencia" value="Sí" required> Sí</label><label><input type="radio" name="hoja_delincuencia" value="No"> No</label></div></fieldset>
+          <fieldset><legend class="required">Cartas de recomendación</legend><div class="choices"><label><input type="radio" name="cartas_recomendacion" value="Sí" required> Sí</label><label><input type="radio" name="cartas_recomendacion" value="No"> No</label></div></fieldset>
+          <fieldset><legend class="required">Currículum actualizado</legend><div class="choices"><label><input type="radio" name="curriculum_actualizado" value="Sí" required> Sí</label><label><input type="radio" name="curriculum_actualizado" value="No"> No</label></div></fieldset>
+          <fieldset><legend>¿Autoriza solicitar referencias a ex patronos o jefaturas?</legend><div class="choices"><label><input type="radio" name="autoriza_referencias" value="Sí"> Sí</label><label><input type="radio" name="autoriza_referencias" value="No"> No</label></div></fieldset>
+        </div>
+      </section>
+
+      <section class="section"><h2>3. Salud ocupacional</h2><p class="section-intro">Información relevante para valorar las condiciones del puesto.</p>
+        <fieldset><legend class="required">¿Padece alguna de las siguientes condiciones? (puede marcar varias)</legend><div class="choices">
+          <label><input type="checkbox" name="condiciones_salud" value="Alergia al polvo"> Alergia al polvo</label><label><input type="checkbox" name="condiciones_salud" value="Alergia al aire acondicionado"> Alergia al aire acondicionado</label><label><input type="checkbox" name="condiciones_salud" value="Lesiones de cadera"> Lesiones de cadera</label><label><input type="checkbox" name="condiciones_salud" value="Lesiones de muñeca"> Lesiones de muñeca</label><label><input type="checkbox" name="condiciones_salud" value="Diabetes"> Diabetes</label><label><input type="checkbox" name="condiciones_salud" value="Hernia"> Hernia</label><label><input type="checkbox" name="condiciones_salud" value="Lesiones de espalda"> Lesiones de espalda</label><label><input type="checkbox" name="condiciones_salud" value="Asma"> Asma</label><label><input type="checkbox" name="condiciones_salud" value="Presión alta"> Presión alta</label><label><input type="checkbox" name="condiciones_salud" value="Presión baja"> Presión baja</label><label><input id="ningunaCondicion" type="checkbox" name="condiciones_salud" value="Ninguna"> No padece ninguna</label>
+        </div></fieldset>
+        <div class="field"><label class="required" for="otra_condicion">Otra condición (escriba “Ninguna” si no aplica)</label><input id="otra_condicion" name="otra_condicion" required></div>
+        <fieldset><legend class="required">¿Le han realizado alguna operación?</legend><div class="choices"><label><input type="radio" name="operacion" value="Sí" required data-toggle="operacionDetalle"> Sí</label><label><input type="radio" name="operacion" value="No" data-toggle="operacionDetalle"> No</label></div></fieldset>
+        <div id="operacionDetalle" class="conditional hidden"><div class="field"><label for="tipo_operacion">¿De qué fue operado(a)?</label><textarea id="tipo_operacion" name="tipo_operacion"></textarea></div><div class="field"><label for="limitacion_operacion">¿La operación le impide agacharse, alzar peso considerable o hincarse?</label><textarea id="limitacion_operacion" name="limitacion_operacion"></textarea></div></div>
+        <fieldset><legend class="required">¿Ha tenido algún accidente grave (laboral, de tránsito o casero)?</legend><div class="choices"><label><input type="radio" name="accidente" value="Sí" required data-toggle="accidenteDetalle"> Sí</label><label><input type="radio" name="accidente" value="No" data-toggle="accidenteDetalle"> No</label></div></fieldset>
+        <div id="accidenteDetalle" class="field conditional hidden"><label for="detalle_accidente">Indique cuándo ocurrió, cuánto tiempo estuvo incapacitado(a), su estado actual, limitaciones físicas y citas médicas pendientes</label><textarea id="detalle_accidente" name="detalle_accidente"></textarea></div>
+        <fieldset><legend class="required">¿Debe consumir algún medicamento regularmente?</legend><div class="choices"><label><input type="radio" name="medicamento" value="Sí" required data-toggle="medicamentoDetalle"> Sí</label><label><input type="radio" name="medicamento" value="No" data-toggle="medicamentoDetalle"> No</label></div></fieldset>
+        <div id="medicamentoDetalle" class="field conditional hidden"><label for="detalle_medicamento">¿Cuál medicamento consume y para qué sirve?</label><textarea id="detalle_medicamento" name="detalle_medicamento"></textarea></div>
+        <div class="grid"><fieldset><legend class="required">¿Consume o ha consumido drogas?</legend><div class="choices"><label><input type="radio" name="drogas" value="Sí" required> Sí</label><label><input type="radio" name="drogas" value="No"> No</label></div></fieldset><fieldset><legend class="required">¿Consume alcohol?</legend><div class="choices"><label><input type="radio" name="alcohol" value="Sí" required> Sí</label><label><input type="radio" name="alcohol" value="No"> No</label></div></fieldset></div>
+      </section>
+
+      <section class="section"><h2>4. Uniforme</h2><p class="section-intro">Seleccione las tallas correspondientes.</p><div class="grid">
+        <div class="field"><label class="required" for="camiseta">Talla de camiseta</label><select id="camiseta" name="talla_camiseta" required><option value="">Seleccione…</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select></div>
+        <div class="field"><label for="pantalon_mujer">Talla de pantalón — mujer</label><select id="pantalon_mujer" name="talla_pantalon_mujer"><option value="">No aplica</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select></div>
+        <div class="field"><label for="pantalon_hombre">Talla de pantalón — hombre</label><select id="pantalon_hombre" name="talla_pantalon_hombre"><option value="">No aplica</option><option>28</option><option>30</option><option>32</option><option>34</option><option>36</option><option>38</option></select></div>
+        <div class="field"><label class="required" for="zapatos">Talla de zapatos de seguridad</label><select id="zapatos" name="talla_zapatos" required><option value="">Seleccione…</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option></select></div>
+      </div></section>
+
+      <section class="section"><h2>5. Entrevista y experiencia</h2><p class="section-intro">Experiencia, expectativas y adaptación al puesto.</p>
+        <fieldset><legend>¿Tiene parientes que trabajen para SBM o con sus clientes?</legend><div class="choices"><label><input type="radio" name="parientes_sbm" value="Sí"> Sí</label><label><input type="radio" name="parientes_sbm" value="No"> No</label></div></fieldset>
+        <div class="field"><label for="actividades">Actividades fuera de la jornada laboral</label><textarea id="actividades" name="actividades_fuera_jornada"></textarea></div>
+        <div class="field"><label for="quehaceres">¿En qué quehaceres del hogar participa? ¿Es detallista, le gustan las cosas limpias y ordenadas y limpiaría baños?</label><textarea id="quehaceres" name="quehaceres_hogar"></textarea></div>
+        <div class="field"><label for="opinion_puesto">Explique en qué consiste el trabajo. ¿Qué piensa del trabajo ofrecido y cómo se sentiría haciéndolo?</label><textarea id="opinion_puesto" name="opinion_puesto"></textarea></div>
+        <div class="field"><label for="cuarto_limpio">¿Tiene experiencia en cuarto limpio o cuartos controlados? Si la tiene, explique en qué consisten</label><textarea id="cuarto_limpio" name="experiencia_cuarto_limpio"></textarea></div>
+        <div class="field"><label for="tareas_dificiles">¿Qué pensaría de su jefatura si le asignara tareas más difíciles que a sus compañeros?</label><textarea id="tareas_dificiles" name="tareas_dificiles"></textarea></div>
+        <div class="field"><label for="procedimientos">¿Ha tenido trabajos donde debía seguir instrucciones o procedimientos paso a paso?</label><textarea id="procedimientos" name="seguir_procedimientos"></textarea></div>
+        <div class="field"><label for="diversidad">¿Le importaría trabajar con personas de diferente credo, orientación sexual, cultura o nacionalidad?</label><textarea id="diversidad" name="trabajo_diversidad"></textarea></div>
+        <fieldset><legend>En SBM se espera mantener una excelente relación laboral, basada en la cortesía, el respeto y el profesionalismo con clientes, compañeros y jefaturas. ¿Está de acuerdo y se compromete a cumplir con esta expectativa?</legend><div class="choices"><label><input type="radio" name="compromiso_relacion_laboral" value="Sí"> Sí</label><label><input type="radio" name="compromiso_relacion_laboral" value="No"> No</label></div></fieldset>
+        <div class="grid"><div class="field"><label for="disponibilidad">¿Cuándo estaría disponible para iniciar labores?</label><input id="disponibilidad" name="disponibilidad_inicio"></div><div class="field"><label for="salario">Pretensión salarial</label><input id="salario" name="pretension_salarial"></div></div>
+        <div class="grid">
+          <fieldset><legend>¿Aceptaría jornada diurna, nocturna o ambas?</legend><div class="choices"><label><input type="radio" name="acepta_jornada" value="Sí"> Sí</label><label><input type="radio" name="acepta_jornada" value="No"> No</label></div></fieldset>
+          <fieldset><legend>¿Trabajaría horas extras, días libres o feriados?</legend><div class="choices"><label><input type="radio" name="horas_extras" value="Sí"> Sí</label><label><input type="radio" name="horas_extras" value="No"> No</label></div></fieldset>
+          <fieldset><legend>¿Ha utilizado equipo de protección personal?</legend><div class="choices"><label><input type="radio" name="uso_epp" value="Sí"> Sí</label><label><input type="radio" name="uso_epp" value="No"> No</label></div></fieldset>
+          <fieldset><legend>¿Aceptaría utilizarlo sin objetar?</legend><div class="choices"><label><input type="radio" name="acepta_epp" value="Sí"> Sí</label><label><input type="radio" name="acepta_epp" value="No"> No</label></div></fieldset>
+        </div>
+        <div class="field"><label for="empleos">Últimos trabajos: actividades, fechas de entrada y salida y motivos de salida</label><textarea id="empleos" name="ultimos_empleos"></textarea></div>
+      </section>
+
+      <p class="privacy">El borrador se almacena solamente en este navegador. Al presionar “Enviar respuestas”, la información se guardará en la base de datos de SBM bajo el proyecto <strong>Entrevistas SBM 2026</strong>.</p>
+      <div class="actions"><button type="button" class="danger" id="clearBtn">Limpiar</button><button type="button" class="secondary" id="reportBtn">Reporte / PDF</button><button type="button" class="secondary" id="downloadBtn">Descargar copia</button><button type="submit" class="primary" id="submitBtn">Enviar respuestas</button></div>
+      <p id="status" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+  <script>
+    const form=document.getElementById('sbmForm'),statusEl=document.getElementById('status'),submitBtn=document.getElementById('submitBtn'),storageKey='sbm-entrevista-borrador-v1';
+    const database={
+      url:'https://uamyglxdzmdrwjdfscvg.supabase.co',
+      key:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhbXlnbHhkem1kcndqZGZzY3ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxNjc2MDMsImV4cCI6MjA5Nzc0MzYwM30.VN40WYlbouiBJNAPwAA60ZZmudbtM5DG4JgPaepSDs8',
+      projectKey:'sbm_entrevista_2026',sourceForm:'KXLms8wvZA'
+    };
+    if(!document.getElementById('fecha').value) document.getElementById('fecha').value=new Date().toISOString().slice(0,10);
+    function dataObject(){const fd=new FormData(form),obj={};for(const [k,v] of fd){if(k in obj)obj[k]=Array.isArray(obj[k])?[...obj[k],v]:[obj[k],v];else obj[k]=v}return obj}
+    function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]))}
+    function reportSections(){
+      const answers=dataObject(),seen=new Set(),sections=[];
+      for(const control of [...form.elements]){
+        if(!control.name||seen.has(control.name)||['button','submit','reset'].includes(control.type))continue;
+        seen.add(control.name);
+        const sectionEl=control.closest('section'),sectionTitle=sectionEl?.querySelector('h2')?.textContent.trim()||'Información';
+        let section=sections.find(item=>item.title===sectionTitle);if(!section){section={title:sectionTitle,rows:[]};sections.push(section)}
+        const fieldset=control.closest('fieldset');
+        const label=fieldset?.querySelector('legend')?.textContent.trim()||form.querySelector(`label[for="${control.id}"]`)?.textContent.trim()||control.name.replaceAll('_',' ');
+        let value=answers[control.name];if(Array.isArray(value))value=value.join(', ');if(value===undefined||value==='')value='Sin respuesta';
+        section.rows.push({label:label.replace(/\s*\*\s*$/,''),value});
+      }
+      return sections;
+    }
+    function openReport(){
+      const sections=reportSections(),answers=dataObject(),generated=new Intl.DateTimeFormat('es-CR',{dateStyle:'long',timeStyle:'short'}).format(new Date());
+      const report=window.open('','_blank');if(!report){statusEl.textContent='El navegador bloqueó el reporte. Permita ventanas emergentes e inténtelo nuevamente.';return}
+      const content=sections.map(section=>`<section><h2>${escapeHtml(section.title)}</h2>${section.rows.map(row=>`<div class="row"><div class="question">${escapeHtml(row.label)}</div><div class="answer">${escapeHtml(row.value)}</div></div>`).join('')}</section>`).join('');
+      report.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Reporte de entrevista — ${escapeHtml(answers.nombre||'Candidato')}</title><style>
+        @page{size:A4;margin:16mm}*{box-sizing:border-box}body{margin:0;color:#17202a;font:11pt/1.42 Arial,sans-serif}.header{border-bottom:4px solid #e6ad30;padding-bottom:12px;margin-bottom:20px}.header h1{color:#173b67;margin:0 0 5px;font-size:22pt}.meta{color:#637083;font-size:9.5pt}.instructions{background:#eef3f8;border:1px solid #dce3eb;border-radius:8px;padding:10px 12px;margin:15px 0}.toolbar{display:flex;gap:10px;margin:0 0 18px}.toolbar button{border:0;border-radius:7px;padding:10px 15px;background:#173b67;color:#fff;font-weight:bold;cursor:pointer}.toolbar .close{background:#e8edf3;color:#173b67}section{margin:0 0 22px;break-inside:auto}h2{font-size:14pt;color:#173b67;border-bottom:1px solid #b9c5d3;padding-bottom:5px;margin:0 0 4px}.row{display:grid;grid-template-columns:42% 58%;border-bottom:1px solid #e2e8f0;break-inside:avoid}.question,.answer{padding:7px 8px;white-space:pre-wrap;overflow-wrap:anywhere}.question{font-weight:bold;background:#f7f9fb}.answer{min-height:30px}.footer{margin-top:25px;padding-top:8px;border-top:1px solid #b9c5d3;color:#637083;font-size:9pt}@media(max-width:650px){.row{grid-template-columns:1fr}.answer{padding-top:2px}}@media print{.toolbar,.instructions{display:none}.row{grid-template-columns:42% 58%}body{font-size:9.5pt}h2{font-size:12pt}.header h1{font-size:19pt}}
+      </style></head><body><div class="toolbar"><button onclick="window.print()">Imprimir o guardar PDF</button><button class="close" onclick="window.close()">Cerrar reporte</button></div><div class="instructions">Seleccione <strong>Guardar como PDF</strong> como destino en la ventana de impresión para descargar el reporte.</div><header class="header"><h1>Reporte de entrevista — SBM</h1><div class="meta"><strong>Candidato:</strong> ${escapeHtml(answers.nombre||'Sin indicar')} &nbsp; | &nbsp; <strong>Fecha:</strong> ${escapeHtml(answers.fecha||'Sin indicar')}<br><strong>Proyecto:</strong> Entrevistas SBM 2026 &nbsp; | &nbsp; <strong>Reporte generado:</strong> ${escapeHtml(generated)}</div></header>${content}<div class="footer">Documento generado desde el Formulario de entrevista SBM. Contiene información confidencial del proceso de selección.</div></body></html>`);
+      report.document.close();statusEl.textContent='Reporte generado. Use “Imprimir o guardar PDF” en la nueva ventana.';
+    }
+    function updateProgress(){const req=[...form.querySelectorAll('[required]')],done=req.filter(el=>el.type==='radio'?[...form.querySelectorAll(`[name="${el.name}"]`)].some(x=>x.checked):el.value.trim()).length;document.getElementById('progress').style.width=(req.length?Math.round(done/req.length*100):0)+'%'}
+    function saveDraft(){localStorage.setItem(storageKey,JSON.stringify(dataObject()));statusEl.textContent='Borrador guardado automáticamente.';updateProgress()}
+    function restore(){let data;try{data=JSON.parse(localStorage.getItem(storageKey)||'null')}catch{}if(!data)return;for(const [k,v] of Object.entries(data)){const els=[...form.elements].filter(e=>e.name===k),vals=Array.isArray(v)?v:[v];els.forEach(el=>{if(el.type==='radio'||el.type==='checkbox')el.checked=vals.includes(el.value);else el.value=v})}}
+    function toggleDetails(){[['operacion','operacionDetalle'],['accidente','accidenteDetalle'],['medicamento','medicamentoDetalle']].forEach(([name,id])=>{const yes=form.querySelector(`[name="${name}"]:checked`)?.value==='Sí',box=document.getElementById(id);box.classList.toggle('hidden',!yes);box.querySelectorAll('textarea').forEach(x=>x.required=yes)})}
+    restore();toggleDetails();updateProgress();
+    form.addEventListener('input',()=>{toggleDetails();saveDraft()});form.addEventListener('change',()=>{toggleDetails();saveDraft()});
+    document.getElementById('ningunaCondicion').addEventListener('change',e=>{if(e.target.checked)form.querySelectorAll('[name="condiciones_salud"]').forEach(x=>{if(x!==e.target)x.checked=false})});
+    form.querySelectorAll('[name="condiciones_salud"]').forEach(x=>x.addEventListener('change',()=>{if(x.id!=='ningunaCondicion'&&x.checked)document.getElementById('ningunaCondicion').checked=false}));
+    form.addEventListener('submit',async e=>{
+      e.preventDefault();toggleDetails();
+      if(!form.reportValidity()){statusEl.textContent='Revise los campos obligatorios pendientes.';return}
+      submitBtn.disabled=true;submitBtn.textContent='Enviando…';statusEl.textContent='Guardando respuestas de forma segura…';
+      const answers=dataObject();
+      try{
+        const response=await fetch(`${database.url}/rest/v1/sbm_interview_responses`,{
+          method:'POST',
+          headers:{'apikey':database.key,'Authorization':`Bearer ${database.key}`,'Content-Type':'application/json','Prefer':'return=minimal'},
+          body:JSON.stringify({project_key:database.projectKey,source_form:database.sourceForm,candidate_name:answers.nombre,response_data:answers})
+        });
+        if(!response.ok){let detail='';try{detail=(await response.json()).message||''}catch{}throw new Error(detail||`Error ${response.status}`)}
+        localStorage.removeItem(storageKey);statusEl.textContent='Respuestas enviadas correctamente. Ya puede cerrar esta página.';submitBtn.textContent='Enviado';
+      }catch(error){statusEl.textContent=`No se pudieron enviar las respuestas: ${error.message}. El borrador continúa guardado.`;submitBtn.disabled=false;submitBtn.textContent='Reintentar envío'}
+    });
+    document.getElementById('downloadBtn').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(dataObject(),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`entrevista-sbm-${(form.nombre.value||'candidato').trim().replace(/[^a-z0-9áéíóúñ]+/gi,'-').toLowerCase()}.json`;a.click();URL.revokeObjectURL(a.href);statusEl.textContent='Respuestas descargadas.'});
+    document.getElementById('reportBtn').addEventListener('click',openReport);document.getElementById('clearBtn').addEventListener('click',()=>{if(confirm('¿Desea borrar todas las respuestas guardadas?')){localStorage.removeItem(storageKey);form.reset();document.getElementById('fecha').value=new Date().toISOString().slice(0,10);toggleDetails();updateProgress();statusEl.textContent='Formulario limpiado.'}});
+  </script>
+</body>
+</html>
