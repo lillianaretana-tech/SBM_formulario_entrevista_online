@@ -17,6 +17,7 @@
     input:focus,select:focus,textarea:focus{outline:3px solid #e6ad3045;border-color:var(--blue)}textarea{min-height:105px;resize:vertical}.choices{display:flex;flex-wrap:wrap;gap:10px 22px}.choices label{display:flex;align-items:center;gap:8px;font-weight:450;margin:0}.choices input{width:auto;accent-color:var(--blue)}
     .conditional{border-left:4px solid var(--gold);padding-left:16px;margin:5px 0 20px}.hidden{display:none}.actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-end;margin-top:24px}.actions button{border:0;border-radius:9px;padding:12px 17px;font:650 15px inherit;cursor:pointer}.primary{background:var(--blue);color:#fff}.secondary{background:#e8edf3;color:var(--blue)}.danger{background:#fee4e2;color:#912018}
     #status{min-height:24px;margin:12px 0 0;text-align:right;color:var(--muted)}.privacy{font-size:.9rem;color:var(--muted);margin-top:20px}.progress-wrap{position:sticky;top:0;z-index:2;background:#ffffffed;border-bottom:1px solid var(--line);padding:8px 18px;backdrop-filter:blur(8px)}.progress{height:7px;max-width:900px;margin:auto;background:#e2e8f0;border-radius:8px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:var(--gold);transition:.2s}
+    .site-footer{max-width:900px;margin:-35px auto 35px;padding:0 18px;text-align:center}.admin-link{display:inline-block;color:var(--muted);font-size:.88rem;text-decoration:none;padding:8px 12px;border-radius:8px}.admin-link:hover,.admin-link:focus{color:var(--blue);background:#e8edf3;outline:none}
     @media(max-width:650px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.section{padding:20px 16px}.actions button{flex:1}.hero{padding-top:32px}}
     @media print{.progress-wrap,.actions,#status{display:none}.hero{padding:20px;color:#000;background:#fff;border-bottom:2px solid #000}.section,.notice{box-shadow:none;break-inside:avoid}body{background:#fff}main{padding:10px}}
   </style>
@@ -98,6 +99,7 @@
       <p id="status" role="status" aria-live="polite"></p>
     </form>
   </main>
+  <footer class="site-footer"><a class="admin-link" href="admin.html">Acceso administrativo</a></footer>
   <script>
     const form=document.getElementById('sbmForm'),statusEl=document.getElementById('status'),submitBtn=document.getElementById('submitBtn'),storageKey='sbm-entrevista-borrador-v1';
     const database={
