@@ -150,9 +150,9 @@
     p1.push(text(331, 760.2, get('cedula'), { maxW: 121 }));
     p2.push(text(250.5, 79, formatDate(get('fecha')), { maxW: 127 }));
 
-    // Una sola hoja: el cuerpo sube 13.4 pt y la continuación de la declaración baja a la misma página
+    // Una sola hoja: el cuerpo sube 24 pt y la continuación de la declaración baja a la misma página
     // (debe coincidir con SHIFT08 y CONT08 del generador de plantillas).
-    return [`<g transform="translate(0 -13.4)">${p1.join('')}<g transform="translate(0 691.55)">${p2.join('')}</g></g>`];
+    return [`<g transform="translate(0 -24)">${p1.join('')}<g transform="translate(0 691.55)">${p2.join('')}</g></g>`];
   }
 
   /* ======================= RH-F-11 · Guía de entrevista (2 hojas) ======================= */
