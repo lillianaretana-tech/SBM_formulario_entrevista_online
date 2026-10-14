@@ -1,7 +1,7 @@
 /* Impresión de formularios de calidad (ISO 9001): RH-F-08 Estado de Salud y RH-F-11 Guía de entrevista.
  *
  * El formulario se imprime idéntico al documento original: tamaño carta, mismas posiciones, mismos
- * saltos de página (RH-F-08 = 2 páginas, RH-F-11 = 3 páginas). Sólo se superponen los datos del
+ * saltos de página (RH-F-08 = 1 hoja, RH-F-11 = 2 hojas). Sólo se superponen los datos del
  * candidato sobre las líneas en blanco y se marca una X en las casillas correspondientes.
  *
  * El texto fijo, las líneas y los logos viven en print-templates.js (generado a partir de los .doc
@@ -100,7 +100,7 @@
     return state === 'si' ? mark(sx, y, w) : state === 'no' ? mark(nx, y, w) : '';
   }
 
-  /* ======================= RH-F-08 · Estado de Salud (2 páginas) ======================= */
+  /* ======================= RH-F-08 · Estado de Salud (1 hoja) ======================= */
   function fillRH08(d) {
     const { get, yn } = makeAccessor(d);
     const p1 = [], p2 = [];
@@ -150,13 +150,15 @@
     p1.push(text(331, 760.2, get('cedula'), { maxW: 121 }));
     p2.push(text(250.5, 79, formatDate(get('fecha')), { maxW: 127 }));
 
-    return [p1.join(''), p2.join('')];
+    // Una sola hoja: el cuerpo sube 13.4 pt y la continuación de la declaración baja a la misma página
+    // (debe coincidir con SHIFT08 y CONT08 del generador de plantillas).
+    return [`<g transform="translate(0 -13.4)">${p1.join('')}<g transform="translate(0 691.55)">${p2.join('')}</g></g>`];
   }
 
-  /* ======================= RH-F-11 · Guía de entrevista (3 páginas) ======================= */
+  /* ======================= RH-F-11 · Guía de entrevista (2 hojas) ======================= */
   function fillRH11(d) {
     const { get, yn } = makeAccessor(d);
-    const p1 = [], p2 = [], p3 = [];
+    const p1 = [], p3 = [];
 
     p1.push(text(118, 64.6, formatDate(get('fecha')), { size: 9, maxW: 141 }));
     p1.push(text(360, 64.6, get('entrevistador'), { size: 9, maxW: 141 }));
@@ -194,7 +196,7 @@
     // Prueba de escritura (22): texto dentro del recuadro redondeado
     p3.push(paragraph(76, 497, d?.seccion_22_respuesta, 446, { size: 10, leading: 14, maxLines: 13, min: 7 }));
 
-    return [p1.join(''), p2.join(''), p3.join('')];
+    return [p1.join(''), p3.join('')];   // 2 hojas: el punto 20 queda al pie de la página 1
   }
 
   const FORMS = {
